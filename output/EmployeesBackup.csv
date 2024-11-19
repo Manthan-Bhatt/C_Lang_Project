@@ -1,0 +1,21 @@
+Emp_Name,Emp_ID,Emp_Department,Emp_Designation,Emp_Joining_Date,Yearly_Sal,Emp_Net_Sal
+Aakash Sharma,E001,IT,Software Engineer,01-Jan-2020,1200000.000,1020000.000
+Vivek Patel,E009,IT,Senior Developer,18-Mar-2017,1400000.000,1190000.000
+Kunal Agarwal,E015,IT,Software Architect,10-Jan-2016,1600000.000,1360000.000
+Omkar Deshmukh,E017,IT,CTO,20-Mar-2015,1850000.000,1572500.000
+Aarti Yadav,E012,IT,Business Analyst,07-Jan-2019,1000000.000,850000.000
+Shalini Singh,E026,IT,Software Developer,10-Oct-2020,900000.000,765000.000
+Anupam Mehta,E027,IT,IT Manager,02-Feb-2019,1180000.000,1003000.000
+Harshit Soni,E031,IT,Software Engineer,20-Apr-2017,1330000.000,1130500.000
+Abhishek Kumar,E039,IT,IT Support Manager,06-Jan-2019,1350000.000,1147500.000
+Riya Patel,E002,Marketing,Marketing Manager,15-Mar-2019,1050000.000,892500.000
+Neha Joshi,E006,Marketing,Graphic Designer,02-Jul-2020,850000.000,722500.000
+Vandana Desai,E008,Marketing,Research Analyst,05-Dec-2022,1100000.000,935000.000
+Sneha Jain,E018,Marketing,Marketing Specialist,30-Aug-2020,1220000.000,1037000.000
+Pooja Agarwal,E023,Marketing,Content Writer,27-Apr-2019,980000.000,833000.000
+Tarun Kumar,E024,Marketing,Marketing Director,14-Nov-2017,1380000.000,1173000.000
+Varun Agarwal,E033,Marketing,Lead Designer,05-Sep-2021,1190000.000,1011500.000
+Rahul Garg,E038,Marketing,Marketing Strategist,14-Mar-2020,1060000.000,901000.000
+Arjun Singh,E007,Sales,Sales Executive,16-Oct-2018,1250000.000,1062500.000
+Manish Gupta,E021,Sales,Sales Manager,23-Oct-2020,780000.000,663000.000
+Arvind Yadav,E035,Sales,Business Development Manager,03-Feb-2020,1200000.000,1020000.000
