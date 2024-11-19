@@ -326,17 +326,3 @@ void Ask_Save_Changes(struct Employee employees[], int num_emp)
         Export_To_CSV(employees, num_emp);
     }
 }
-
-/*Errors:
-1.While adding new employee skiping the ID section.
-For ex: Name is entered as Manthan Bhatt than Manthan is alloted to name & Bhatt is alloted to ID.
-Solution:
-Use of %[^\n] in scanf & clearing input buffer using
-int c;
-while ((c = getchar()) != '\n' && c != EOF);.
-*/
-/*Dont know might be Helpful:
-Why EOF is Useful
-Loop Termination: It allows functions like getchar(), fgetc(), and fgets() to detect when the end of a file or stream is reached, preventing the program from reading past available data.
-Error Checking: EOF is also used to detect errors in file or input reading. Functions like fgetc() and getchar() return EOF to indicate either the end of the file or an input error.
-*/
