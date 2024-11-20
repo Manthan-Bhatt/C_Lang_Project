@@ -8,7 +8,7 @@ struct Employee
     char Emp_Name[50];
     char Emp_ID[50];
     char Emp_Department[50];
-    char Emp_Designation[50];
+    char Emp_Designation[100];
     char Emp_Joining_Date[50];
     float Yearly_Sal;
     float Emp_Net_Sal;
@@ -26,6 +26,7 @@ void Sort_Emp_ID(struct Employee employees[], int num_emp);
 void Sort_Emp_Sal(struct Employee employees[], int num_emp);
 void Export_To_CSV(struct Employee employees[], int num_emp);
 void Ask_Save_Changes(struct Employee employees[], int num_emp);
+void Emp_Resigned(struct Employee employee[], int *num_emp);
 
 int main()
 {
@@ -36,17 +37,26 @@ int main()
 
     while (1)
     {
-        printf("\n\nTotal Number of Employees: %d\n\n", num_emp);
+        printf("\n================ Employee Management System ================\n");
+        printf("Total Number of Employees' Data Available: %d\n", num_emp);
+        printf("-----------------------------------------------------------\n");
         printf("1. Add New Employee\n");
         printf("2. Display All Employees\n");
         printf("3. Search for an Employee\n");
         printf("4. Update Employee Details\n");
         printf("5. Delete an Employee Record\n");
-        printf("6. Save and Exit\n");
-        printf("7. Export to CSV.\n\n");
+        printf("6. Enter the Data of Resigned Employees\n");
+        printf("7. Save and Exit\n");
+        printf("-----------------------------------------------------------\n");
 
-        printf("Enter your Choice (1-7): ");
-        scanf("%d", &choice);
+        printf("Enter your choice (1-7): ");
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("Invalid input. Please enter a number between 1 and 7.\n");
+            while (getchar() != '\n')
+                ;
+            continue;
+        }
 
         switch (choice)
         {
@@ -66,13 +76,13 @@ int main()
             Delete_Employee(employees, &num_emp);
             break;
         case 6:
+            Emp_Resigned(employees, &num_emp);
+            break;
+        case 7:
             Save_Employees(employees, num_emp);
             Ask_Save_Changes(employees, num_emp);
-            printf("Exiting.....\n");
+            printf("Exiting the program. Goodbye!\n");
             return 0;
-        case 7:
-            Export_To_CSV(employees, num_emp);
-            break;
         default:
             printf("Invalid choice. Please try again.\n");
         }
@@ -325,4 +335,36 @@ void Ask_Save_Changes(struct Employee employees[], int num_emp)
     {
         Export_To_CSV(employees, num_emp);
     }
+}
+
+void Emp_Resigned(struct Employee employees[], int *num_emp)
+{
+    char Emp_resign[50];
+    char reason[1000];
+    char Emp_delete;
+    char Emp_Delete;
+    printf("Enter Employee's ID: ");
+    scanf("%s", Emp_resign);
+    for (int i = 0; i < *num_emp; i++)
+    {
+        if (strcmp(employees[i].Emp_ID, Emp_resign) == 0)
+        {
+            printf("Enter the reason for resignation: ");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+            scanf("%[^\n]", reason);
+            printf("\nDo you want to Delete the Employee's Data?(Y/N): ");
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+            scanf("%[^\n]", reason);
+            Emp_Delete = toupper(Emp_delete);
+            if (Emp_Delete == 'Y')
+            {
+                Delete_Employee(employees, num_emp);
+            }
+            return;
+        }
+    }
+    printf("Employee ID not found.\n");
 }
