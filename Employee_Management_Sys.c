@@ -33,23 +33,26 @@ int main()
     struct Employee employees[100];
     int num_emp = 0, choice;
 
+    printf("================== EMPLOYEE MANAGEMENT SYSTEM ==================\n\n");
+
     Load_Employees(employees, &num_emp);
 
     while (1)
     {
-        printf("\n================ Employee Management System ================\n");
-        printf("Total Number of Employees' Data Available: %d\n", num_emp);
-        printf("-----------------------------------------------------------\n");
-        printf("1. Add New Employee\n");
-        printf("2. Display All Employees\n");
-        printf("3. Search for an Employee\n");
-        printf("4. Update Employee Details\n");
-        printf("5. Delete an Employee Record\n");
-        printf("6. Enter the Data of Resigned Employees\n");
-        printf("7. Save and Exit\n");
-        printf("-----------------------------------------------------------\n");
+        printf("----------------------------------------------------------------\n");
+        printf("Total Number of Employees' Data available: %d\n", num_emp);
+        printf("----------------------------------------------------------------\n");
+        printf("1. Add New Employee.\n");
+        printf("2. Display All Employees.\n");
+        printf("3. Search for an Employee.\n");
+        printf("4. Update Employee Details.\n");
+        printf("5. Delete an Employee Record.\n");
+        printf("6. Enter the Data of Resigned Employees.\n");
+        printf("7. Save and Exit.\n");
+        printf("----------------------------------------------------------------\n\n");
 
-        printf("Enter your choice (1-7): ");
+        printf("Enter your Choice (1-7): ");
+        scanf("%d", &choice);
 
         switch (choice)
         {
@@ -74,7 +77,7 @@ int main()
         case 7:
             Save_Employees(employees, num_emp);
             Ask_Save_Changes(employees, num_emp);
-            printf("Exiting the program. Goodbye!!!\n");
+            printf("Exiting.....\n");
             return 0;
         default:
             printf("Invalid choice. Please try again.\n");
@@ -84,7 +87,7 @@ int main()
 
 void Add_New_Employee(struct Employee employees[], int *num_emp)
 {
-    printf("Enter Name: ");
+    printf("\nEnter Name: ");
     int c;
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -102,7 +105,7 @@ void Add_New_Employee(struct Employee employees[], int *num_emp)
     printf("Enter Yearly Salary:Rs. ");
     scanf("%f", &employees[*num_emp].Yearly_Sal);
     (*num_emp)++;
-    printf("Employee added successfully.\n");
+    printf("Employee added successfully.\n\n");
     Net_Sal(employees, *num_emp);
 }
 
