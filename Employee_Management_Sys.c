@@ -50,13 +50,6 @@ int main()
         printf("-----------------------------------------------------------\n");
 
         printf("Enter your choice (1-7): ");
-        if (scanf("%d", &choice) != 1)
-        {
-            printf("Invalid input. Please enter a number between 1 and 7.\n");
-            while (getchar() != '\n')
-                ;
-            continue;
-        }
 
         switch (choice)
         {
@@ -81,7 +74,7 @@ int main()
         case 7:
             Save_Employees(employees, num_emp);
             Ask_Save_Changes(employees, num_emp);
-            printf("Exiting the program. Goodbye!\n");
+            printf("Exiting the program. Goodbye!!!\n");
             return 0;
         default:
             printf("Invalid choice. Please try again.\n");
