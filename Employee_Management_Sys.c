@@ -320,7 +320,7 @@ void Ask_Save_Changes(struct Employee employees[], int num_emp)
 {
     char choice;
     printf("Do you want to save the changes to CSV? (y/n): ");
-    scanf(" %c", &choice); 
+    scanf(" %c", &choice);
     if (choice == 'y' || choice == 'Y')
     {
         Export_To_CSV(employees, num_emp);
