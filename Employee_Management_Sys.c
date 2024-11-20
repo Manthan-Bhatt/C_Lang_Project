@@ -355,7 +355,7 @@ void Emp_Resigned(struct Employee employees[], int *num_emp)
                 ;
             scanf("%[^\n]", Date_Resign);
             printf("\nDo you want to Delete the Employee's Data?(Y/N): ");
-            scanf("%c", &Emp_delete);
+            scanf(" %c", &Emp_delete);
             Emp_delete = toupper(Emp_delete);
             if (Emp_delete == 'Y')
             {
