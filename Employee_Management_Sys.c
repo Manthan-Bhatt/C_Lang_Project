@@ -342,7 +342,6 @@ void Emp_Resigned(struct Employee employees[], int *num_emp)
     char Emp_resign[50];
     char reason[1000];
     char Emp_delete;
-    char Emp_Delete;
     printf("Enter Employee's ID: ");
     scanf("%s", Emp_resign);
     for (int i = 0; i < *num_emp; i++)
@@ -355,11 +354,9 @@ void Emp_Resigned(struct Employee employees[], int *num_emp)
                 ;
             scanf("%[^\n]", reason);
             printf("\nDo you want to Delete the Employee's Data?(Y/N): ");
-            while ((c = getchar()) != '\n' && c != EOF)
-                ;
-            scanf("%[^\n]", reason);
-            Emp_Delete = toupper(Emp_delete);
-            if (Emp_Delete == 'Y')
+            scanf("%c", &Emp_delete);
+            Emp_delete = toupper(Emp_delete);
+            if (Emp_delete == 'Y')
             {
                 Delete_Employee(employees, num_emp);
             }
