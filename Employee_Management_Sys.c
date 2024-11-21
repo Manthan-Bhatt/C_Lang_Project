@@ -3,6 +3,10 @@
 #include <ctype.h>
 #include <string.h>
 
+#define Red "\033[1;31m"
+#define Green "\033[1;32m"
+#define Reset "\033[1;37m"
+
 struct Employee
 {
     char Emp_Name[50];
@@ -12,6 +16,16 @@ struct Employee
     char Emp_Joining_Date[50];
     float Yearly_Sal;
     float Emp_Net_Sal;
+};
+
+struct Resign_Employee
+{
+    char Resign_Emp_Name[50];
+    char Resign_Emp_ID[50];
+    char Resign_Emp_Department[50];
+    char Resign_Emp_Designation[100];
+    char Resign_Emp_Joining_Date[50];
+    char Reason[2000];
 };
 
 void Add_New_Employee(struct Employee employees[], int *num_emp);
@@ -26,63 +40,99 @@ void Sort_Emp_ID(struct Employee employees[], int num_emp);
 void Sort_Emp_Sal(struct Employee employees[], int num_emp);
 void Export_To_CSV(struct Employee employees[], int num_emp);
 void Ask_Save_Changes(struct Employee employees[], int num_emp);
-void Emp_Resigned(struct Employee employee[], int *num_emp);
+void Emp_Resigned(struct Resign_Employee Resign_emp[], struct Employee employees[], int *resign_num_ep, int *num_emp);
 
 int main()
 {
     struct Employee employees[100];
-    int num_emp = 0, choice;
+    struct Resign_Employee Resign_emp[100];
+    int num_emp = 0, resign_num_emp = 0, choice;
+    char Auth[100] = "24ITB079_24ITB091";
+    char password[100] = "Nirma@123";
+    char password_veri[100];
+    char auth_veri[100];
 
-    printf("================== EMPLOYEE MANAGEMENT SYSTEM ==================\n\n");
-
-    Load_Employees(employees, &num_emp);
-
-    while (1)
+    printf("========================== Authentication ========================== \n\n");
+    printf("Enter your ID: ");
+    scanf("%s", auth_veri);
+    if (strcmp(auth_veri, Auth) == 0)
     {
-        printf("----------------------------------------------------------------\n");
-        printf("Total Number of Employees' Data available: %d\n", num_emp);
-        printf("----------------------------------------------------------------\n");
-        printf("1. Add New Employee.\n");
-        printf("2. Display All Employees.\n");
-        printf("3. Search for an Employee.\n");
-        printf("4. Update Employee Details.\n");
-        printf("5. Delete an Employee Record.\n");
-        printf("6. Enter the Data of Resigned Employees.\n");
-        printf("7. Save and Exit.\n");
-        printf("----------------------------------------------------------------\n\n");
+        printf("Enter Password: ");
+        scanf("%s", password_veri);
 
-        printf("Enter your Choice (1-7): ");
-        scanf("%d", &choice);
-
-        switch (choice)
+        if (strcmp(password, password_veri) == 0)
         {
-        case 1:
-            Add_New_Employee(employees, &num_emp);
-            break;
-        case 2:
-            Display_All_Employee(employees, num_emp);
-            break;
-        case 3:
-            Search_Employee(employees, num_emp);
-            break;
-        case 4:
-            Update_Employee(employees, num_emp);
-            break;
-        case 5:
-            Delete_Employee(employees, &num_emp);
-            break;
-        case 6:
-            Emp_Resigned(employees, &num_emp);
-            break;
-        case 7:
-            Save_Employees(employees, num_emp);
-            Ask_Save_Changes(employees, num_emp);
-            printf("Exiting.....\n");
-            return 0;
-        default:
-            printf("Invalid choice. Please try again.\n");
+            printf(Green "Password Verified Successfully..\n\n" Reset);
+            printf("================== EMPLOYEE MANAGEMENT SYSTEM ==================\n\n");
+
+            Load_Employees(employees, &num_emp);
+
+            while (1)
+            {
+                printf("----------------------------------------------------------------\n");
+                printf("Total Number of Employees' Data available: %d\n", num_emp);
+                printf(Green "Total Number of Employees Currently working: %d\n" Reset, num_emp - resign_num_emp);
+                printf(Red "Total number of Resigned Employees are: %d" Reset, resign_num_emp);
+                printf("----------------------------------------------------------------\n");
+                printf("1. Add New Employee.\n");
+                printf("2. Display All Employees.\n");
+                printf("3. Search for an Employee.\n");
+                printf("4. Update Employee Details.\n");
+                printf("5. Delete an Employee Record.\n");
+                printf("6. Enter the Data of Resigned Employees.\n");
+                printf("7. Save and Exit.\n");
+                printf("----------------------------------------------------------------\n\n");
+
+                printf("Enter your Choice (1-7): ");
+                scanf("%d", &choice);
+
+                switch (choice)
+                {
+                case 1:
+                    Add_New_Employee(employees, &num_emp);
+                    break;
+                case 2:
+                    Display_All_Employee(employees, num_emp);
+                    break;
+                case 3:
+                    Search_Employee(employees, num_emp);
+                    break;
+                case 4:
+                    Update_Employee(employees, num_emp);
+                    break;
+                case 5:
+                    Delete_Employee(employees, &num_emp);
+                    break;
+                case 6:
+                    Emp_Resigned(Resign_emp, employees, &resign_num_emp, &num_emp);
+                    break;
+                case 7:
+                    Save_Employees(employees, num_emp);
+                    Ask_Save_Changes(employees, num_emp);
+                    printf("Exiting.....\n");
+                    return 0;
+                default:
+                    printf("Invalid choice. Please try again.\n");
+                }
+            }
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (strcmp(password, password_veri) != 0)
+            {
+                printf(Red "Incorrect Password...\n" Reset);
+                printf("Enter Password: ");
+                scanf("%s", password_veri);
+                if (i == 4)
+                {
+                    printf(Red "Sorry...\nYou entered incorrect password %d times.\n" Reset, i + 1);
+                    printf("Please try after sometime.\n");
+                }
+            }
         }
     }
+    printf(Red "Incorrect Authentication ID.\n" Reset);
 }
 
 void Add_New_Employee(struct Employee employees[], int *num_emp)
@@ -333,36 +383,37 @@ void Ask_Save_Changes(struct Employee employees[], int num_emp)
     }
 }
 
-void Emp_Resigned(struct Employee employees[], int *num_emp)
+void Emp_Resigned(struct Resign_Employee Resign_emp[], struct Employee employees[], int *resign_num_emp, int *num_emp)
 {
-    char Emp_resign[50];
-    char reason[1000];
-    char Date_Resign[50];
-    char Emp_delete;
-    printf("Enter Employee's ID: ");
-    scanf("%s", Emp_resign);
+    char resign_employee[50];
+    printf("Enter the Employee's ID who Resigned: ");
+    scanf("%s", resign_employee);
     for (int i = 0; i < *num_emp; i++)
     {
-        if (strcmp(employees[i].Emp_ID, Emp_resign) == 0)
+        if (strcmp(employees[i].Emp_ID, resign_employee) == 0)
         {
-            printf("Enter the reason for resignation: ");
+            strcpy(Resign_emp[i].Resign_Emp_Name, employees[i].Emp_Name);
+            strcpy(Resign_emp[i].Resign_Emp_ID, employees[i].Emp_ID);
+            strcpy(Resign_emp[i].Resign_Emp_Department, employees[i].Emp_Department);
+            strcpy(Resign_emp[i].Resign_Emp_Designation, employees[i].Emp_Designation);
+            strcpy(Resign_emp[i].Resign_Emp_Joining_Date, employees[i].Emp_Joining_Date);
+
+            printf("Enter the reason for Resignation: ");
             int c;
             while ((c = getchar()) != '\n' && c != EOF)
                 ;
-            scanf("%[^\n]", reason);
-            printf("Enter the Date of Resignation: ");
-            while ((c = getchar()) != '\n' && c != EOF)
-                ;
-            scanf("%[^\n]", Date_Resign);
-            printf("\nDo you want to Delete the Employee's Data?(Y/N): ");
-            scanf(" %c", &Emp_delete);
-            Emp_delete = toupper(Emp_delete);
-            if (Emp_delete == 'Y')
+            scanf("%[^\n]", Resign_emp[*resign_num_emp].Reason);
+            printf("\nDo you want to Delete the Employee's Data?(%sY%s/%sN%s) ", Red, Reset, Green, Reset);
+
+            char delete_choice;
+            scanf(" %c", &delete_choice);
+            delete_choice = toupper(delete_choice);
+            if (delete_choice == 'Y')
             {
                 Delete_Employee(employees, num_emp);
             }
             return;
         }
     }
-    printf("Employee ID not found.\n");
+    printf("Employee not found....\n");
 }
