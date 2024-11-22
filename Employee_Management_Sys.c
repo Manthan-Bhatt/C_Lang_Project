@@ -5,6 +5,8 @@
 
 #define Red "\033[1;31m"
 #define Green "\033[1;32m"
+#define Yellow "\033[1;33m"
+#define Magenta "\033[1;35m"
 #define Reset "\033[1;37m"
 
 struct Employee
@@ -57,7 +59,7 @@ int main()
     char password_veri[100];
     char auth_veri[100];
 
-    printf("========================== Authentication ========================== \n\n");
+    printf("========================== %sAuthentication%s ========================== \n\n", Magenta, Reset);
     printf("Enter your ID: ");
     scanf("%s", auth_veri);
     if (strcmp(auth_veri, Auth) == 0)
@@ -68,7 +70,7 @@ int main()
         if (strcmp(password, password_veri) == 0)
         {
             printf(Green "Password Verified Successfully..\n\n" Reset);
-            printf("================== EMPLOYEE MANAGEMENT SYSTEM ==================\n\n");
+            printf("================== %sEMPLOYEE MANAGEMENT SYSTEM%s ==================\n\n", Magenta, Reset);
 
             Load_Employees(employees, &num_emp);
             Load_Resign_Employees(Resign_emp, &resign_num_emp);
@@ -119,7 +121,7 @@ int main()
                 case 8:
                     Save_Employees(employees, num_emp);
                     Ask_Save_Changes(employees, num_emp);
-                    printf("Exiting.....\n");
+                    printf(Yellow "Exiting.....\n" Reset);
                     return 0;
                 default:
                     printf("Invalid choice. Please try again.\n");
@@ -303,8 +305,13 @@ void Update_Employee(struct Employee employees[], int num_emp)
         if (strcmp(employees[i].Emp_ID, update_id) == 0)
         {
             printf("Enter New Designation: ");
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
             scanf("%s", employees[i].Emp_Designation);
             printf("Enter New Yearly Salary:Rs. ");
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
             scanf("%f", &employees[i].Yearly_Sal);
             printf("Employee details updated successfully.\n");
             Net_Sal(employees, num_emp);
