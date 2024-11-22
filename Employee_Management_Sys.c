@@ -5,7 +5,6 @@
 
 #define Red "\033[1;31m"
 #define Green "\033[1;32m"
-#define Blue "\033[1;34m"
 #define Reset "\033[1;37m"
 
 struct Employee
@@ -161,7 +160,7 @@ void Add_New_Employee(struct Employee employees[], int *num_emp)
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     scanf("%[^\n]", employees[*num_emp].Emp_Designation);
-    printf(Blue "Employee's Date of Joining: " Reset);
+    printf("Employee's Date of Joining: ");
     scanf("%s", employees[*num_emp].Emp_Joining_Date);
     printf("Enter Yearly Salary:Rs. ");
     scanf("%f", &employees[*num_emp].Yearly_Sal);
