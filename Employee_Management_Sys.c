@@ -1,4 +1,3 @@
-//Emp_Search,Emp_Update, Emp_Resign not working properly.
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -6,6 +5,7 @@
 
 #define Red "\033[1;31m"
 #define Green "\033[1;32m"
+#define Blue "\033[1;34m"
 #define Reset "\033[1;37m"
 
 struct Employee
@@ -161,7 +161,7 @@ void Add_New_Employee(struct Employee employees[], int *num_emp)
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     scanf("%[^\n]", employees[*num_emp].Emp_Designation);
-    printf("Employee's Date of Joining: ");
+    printf(Blue "Employee's Date of Joining: " Reset);
     scanf("%s", employees[*num_emp].Emp_Joining_Date);
     printf("Enter Yearly Salary:Rs. ");
     scanf("%f", &employees[*num_emp].Yearly_Sal);
@@ -346,7 +346,7 @@ void Delete_Employee(struct Employee employees[], int *num_emp)
 
 void Save_Employees(struct Employee employees[], int num_emp)
 {
-    FILE *file = fopen("Employees.txt", "wb");
+    FILE *file = fopen("Employees.dat", "wb");
     if (file == NULL)
     {
         printf("Error saving employees.\n");
@@ -360,7 +360,7 @@ void Save_Employees(struct Employee employees[], int num_emp)
 
 void Load_Employees(struct Employee employees[], int *num_emp)
 {
-    FILE *file = fopen("Employees.txt", "rb");
+    FILE *file = fopen("Employees.dat", "rb");
     if (file == NULL)
     {
         printf(Red "No saved employee data found.\n" Reset);
@@ -374,7 +374,7 @@ void Load_Employees(struct Employee employees[], int *num_emp)
 
 void Load_Resign_Employees(struct Resign_Employee Resign_emp[], int *resign_num_emp)
 {
-    FILE *file = fopen("Resigned Employees.txt", "rb");
+    FILE *file = fopen("Resigned Employees.dat", "rb");
     if (file == NULL)
     {
         printf(Red "No Resigned employee's data found.\n" Reset);
@@ -417,7 +417,7 @@ void Export_To_CSV(struct Employee employees[], int num_emp)
                 employees[i].Emp_Net_Sal);
     }
     fclose(file);
-    printf("Employee data has been successfully backed up to 'EmployeesBackup.csv'.\n");
+    printf("Employee data has been %ssuccessfully%s backed up to 'EmployeesBackup.csv'.\n", Green, Reset);
 }
 
 void Ask_Save_Changes(struct Employee employees[], int num_emp)
@@ -442,7 +442,6 @@ void Emp_Resigned(struct Resign_Employee Resign_emp[], struct Employee employees
 
     for (int i = 0; i < *num_emp; i++)
     {
-        printf("\n%s\n", employees[i].Emp_ID);
         if (strcmp(employees[i].Emp_ID, resign_employee) == 0)
         {
             strcpy(Resign_emp[*resign_num_emp].Resign_Emp_Name, employees[i].Emp_Name);
@@ -471,26 +470,26 @@ void Emp_Resigned(struct Resign_Employee Resign_emp[], struct Employee employees
             (*num_emp)--;
 
             Save_Resign_Employee(Resign_emp, resign_num_emp);
-            printf("Employee resignation recorded successfully.\n");
+            printf(Green "Employee resignation recorded successfully.\n" Reset);
             return;
         }
     }
 
-    printf("Employee not found.\n");
+    printf(Red "Employee not found.\n" Reset);
 }
 
 void Save_Resign_Employee(struct Resign_Employee Resign_emp[], int *resign_num_emp)
 {
-    FILE *file = fopen("Resigned Employees.txt", "wb");
+    FILE *file = fopen("Resigned Employees.dat", "wb");
     if (file == NULL)
     {
-        printf("Error: Unable to save resigned employees' data.\n");
+        printf(Red "Error: Unable to save resigned employees' data.\n" Reset);
         return;
     }
     fwrite(resign_num_emp, sizeof(int), 1, file);
     fwrite(Resign_emp, sizeof(struct Resign_Employee), *resign_num_emp, file);
     fclose(file);
-    printf("Resignation details saved successfully.\n");
+    printf(Green "Resignation details saved successfully.\n" Reset);
 }
 
 void Export_Resigned_To_CSV(struct Resign_Employee Resign_emp[], int resign_num_emp)
@@ -498,7 +497,7 @@ void Export_Resigned_To_CSV(struct Resign_Employee Resign_emp[], int resign_num_
     FILE *file = fopen("ResignedEmployeesBackup.csv", "w");
     if (file == NULL)
     {
-        printf("Error: Unable to create resigned backup file.\n");
+        printf(Red "Error: Unable to create resigned backup file.\n" Reset);
         return;
     }
     fprintf(file, "Resign_Emp_Name,Resign_Emp_ID,Resign_Emp_Department,Resign_Emp_Designation,Resign_Emp_Joining_Date,Resign_Date,Reason\n");
@@ -514,5 +513,5 @@ void Export_Resigned_To_CSV(struct Resign_Employee Resign_emp[], int resign_num_
                 Resign_emp[i].Reason);
     }
     fclose(file);
-    printf("Resigned employees' data has been successfully backed up to 'ResignedEmployeesBackup.csv'.\n");
+    printf(Green "Resigned employees' data has been successfully backed up to 'ResignedEmployeesBackup.csv'.\n" Reset);
 }
