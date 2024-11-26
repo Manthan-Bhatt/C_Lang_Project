@@ -59,7 +59,7 @@ int main()
     char password_veri[100];
     char auth_veri[100];
 
-    printf("========================== %sAuthentication%s ========================== \n\n", Magenta, Reset);
+    printf("\n========================== %sAuthentication%s ========================== \n\n", Magenta, Reset);
     printf("Enter your ID: ");
     scanf("%s", auth_veri);
     if (strcmp(auth_veri, Auth) == 0)
