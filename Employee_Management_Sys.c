@@ -124,7 +124,7 @@ int main()
                     printf(Yellow "Exiting.....\n" Reset);
                     return 0;
                 default:
-                    printf("Invalid choice. Please try again.\n");
+                    printf("%sInvalid choice.%s Please try again.\n", Red, Reset);
                 }
             }
         }
@@ -167,7 +167,7 @@ void Add_New_Employee(struct Employee employees[], int *num_emp)
     printf("Enter Yearly Salary:Rs. ");
     scanf("%f", &employees[*num_emp].Yearly_Sal);
     (*num_emp)++;
-    printf("Employee added successfully.\n\n");
+    printf(Green "Employee added successfully.\n\n" Reset);
     Net_Sal(employees, *num_emp);
 }
 
@@ -175,7 +175,7 @@ void Display_All_Employee(struct Employee employees[], int num_emp)
 {
     if (num_emp == 0)
     {
-        printf("No Employees to Display.\n");
+        printf(Red "No Employees to Display.\n" Reset);
         return;
     }
 
@@ -185,7 +185,7 @@ void Display_All_Employee(struct Employee employees[], int num_emp)
         ;
     scanf("%c", &sort);
     sort = toupper(sort);
-    printf("Displaying all Employees: \n\n");
+    printf("Displaying all Employees: \n");
 
     if (sort == 'I')
     {
@@ -199,7 +199,7 @@ void Display_All_Employee(struct Employee employees[], int num_emp)
 
     else
     {
-        printf("Please enter a valid Input...\n");
+        printf(Red "Please enter a valid Input...\n" Reset);
     }
 
     for (int i = 0; i < num_emp; i++)
@@ -219,11 +219,11 @@ void Display_Resigned_Employee(struct Resign_Employee Resign_emp[], int resign_n
 {
     if (resign_num_emp == 0)
     {
-        printf("No Employees to Display.\n");
+        printf(Red "No Employees to Display.\n" Reset);
         return;
     }
 
-    printf("Displaying all Employees: \n\n");
+    printf("Displaying all Employees: \n");
 
     for (int i = 0; i < resign_num_emp; i++)
     {
@@ -282,7 +282,7 @@ void Search_Employee(struct Employee employees[], int num_emp)
     {
         if (strcmp(employees[i].Emp_ID, search) == 0)
         {
-            printf("\n\nEmployee Found.\n");
+            printf(Green "\n\nEmployee Found.\n" Reset);
             printf("Employee's Name: %s\n", employees[i].Emp_Name);
             printf("Employee's ID: %s\n", employees[i].Emp_ID);
             printf("Employee's Designation: %s\n", employees[i].Emp_Designation);
@@ -291,7 +291,7 @@ void Search_Employee(struct Employee employees[], int num_emp)
             return;
         }
     }
-    printf("Employee Not Found.\n");
+    printf(Red "Employee Not Found.\n" Reset);
 }
 
 void Update_Employee(struct Employee employees[], int num_emp)
@@ -318,7 +318,7 @@ void Update_Employee(struct Employee employees[], int num_emp)
             return;
         }
     }
-    printf("Employee Not Found.\n");
+    printf(Red "Employee Not Found.\n" Reset);
 }
 
 void Delete_Employee(struct Employee employees[], int *num_emp)
@@ -342,12 +342,12 @@ void Delete_Employee(struct Employee employees[], int *num_emp)
                 employees[j] = employees[j + 1];
             }
             (*num_emp)--;
-            printf("Employee deleted successfully.\n");
+            printf(Green "Employee deleted successfully.\n" Reset);
             Export_To_CSV(employees, *num_emp);
             return;
         }
     }
-    printf("Employee Not Found.\n");
+    printf(Red "Employee Not Found.\n" Reset);
 }
 
 void Save_Employees(struct Employee employees[], int num_emp)
